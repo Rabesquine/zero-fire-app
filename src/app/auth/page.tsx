@@ -37,9 +37,12 @@ export default function AuthPage() {
 
         if (error) throw error;
 
-        if (data.user) {
-          router.push('/');
-          router.refresh();
+        if (data.user && data.session) {
+          // Aguardar um momento para garantir que a sessão foi estabelecida
+          await new Promise(resolve => setTimeout(resolve, 500));
+          
+          // Redirecionar para a página principal
+          window.location.href = '/';
         }
       } else {
         // Validar confirmação de senha
@@ -112,9 +115,12 @@ export default function AuthPage() {
 
       if (error) throw error;
 
-      if (data.user) {
-        router.push('/');
-        router.refresh();
+      if (data.user && data.session) {
+        // Aguardar um momento para garantir que a sessão foi estabelecida
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        // Redirecionar para a página principal
+        window.location.href = '/';
       }
     } catch (err: any) {
       setError(err.message || 'Código inválido ou expirado');
